@@ -29,16 +29,13 @@ app.get('/', function(req, res){
 
   
 // your first API endpoint... 
-app.get("/api/shorturl/new", (req,res)=>{
-  res.send(req.header())
-});
 
-// app.post("/api/shorturl/new", function (req, res) {  
-//   res.json({
-//             original_url: req.body.url
-            
-//            });
-// });
+app.post("/api/shorturl/new", function (req, res) {  
+  res.json({
+            original_url: req.body.url,
+            short_url: req.body.shorturl
+           });
+});
 
 
 app.listen(port, function () {
