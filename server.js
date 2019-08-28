@@ -40,8 +40,8 @@ app.get('/', function(req, res){
 app.post("/api/shorturl/new", function (req, res) {  
   
   var createURL = (done)=> {
-  
-  const url = new URL( { originalURL: req.body.url, });
+  const shorturl = Math.random() + 10000;
+  const url = new URL( { originalURL: req.body.url,shortURL:shorturl  });
   url.save((err, data )=>{
           if(err){
             return(err);
