@@ -18,10 +18,11 @@ app.use(cors());
 
 var Schema = mongoose.Schema;
 var URLSchema = new Schema({
-  originalURL : String,
-  
+  originalURL :{ type: String,required:true},
+  shortURL: { type: String}
 })
 
+var URL = mongoose.model('URL',URLSchema);
 
 /** this project needs to parse POST bodies **/
 // you should mount the body-parser here
@@ -37,6 +38,21 @@ app.get('/', function(req, res){
 // your first API endpoint... 
 
 app.post("/api/shorturl/new", function (req, res) {  
+  
+  var createURL = (done)=> {
+  
+  const url = new URL( { originalURL: req.body.url });
+    url.save((err, data )=>{
+          if(err){
+            return(err);
+          }
+          return done(null,data);
+
+      });  
+  };
+  
+  
+  
   res.json({
             original_url: req.body.url
            
