@@ -14,8 +14,14 @@ var port = process.env.PORT || 3000;
 
 /** this project needs a db !! **/ 
 mongoose.connect(process.env.MONGOLAB_URI);
-
 app.use(cors());
+
+var Schema = mongoose.Schema;
+var URLSchema = new Schema({
+  originalURL : String,
+  
+})
+
 
 /** this project needs to parse POST bodies **/
 // you should mount the body-parser here
