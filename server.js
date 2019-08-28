@@ -19,7 +19,8 @@ app.use(cors());
 
 /** this project needs to parse POST bodies **/
 // you should mount the body-parser here
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.get('/', function(req, res){
@@ -28,9 +29,16 @@ app.get('/', function(req, res){
 
   
 // your first API endpoint... 
-app.post("api/shorturl/new", function (req, res) {
-  res.json({original_url: req.body.url});
+app.get("/api/shorturl/new", (req,res)=>{
+  res.send(req.header())
 });
+
+// app.post("/api/shorturl/new", function (req, res) {  
+//   res.json({
+//             original_url: req.body.url
+            
+//            });
+// });
 
 
 app.listen(port, function () {
