@@ -38,8 +38,9 @@ app.get('/', function(req, res){
 // your first API endpoint... 
 
 app.post("/api/shorturl/new", function (req, res) {  
-  var shorturl = 0;
-  shorturl = Math.floor(Math.random() * 10000);
+  
+  createURL(req.body.url);
+  
     
   
   // res.json({
@@ -48,15 +49,7 @@ app.post("/api/shorturl/new", function (req, res) {
   //          })
 
   
-   // var createURL = (done)=> {      
-        var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
-
-        url.save().then( displayMsg => {
-                  
-                  res.send("Url is saved");
-
-        });  
-   // };    
+  
 
  var findUrl = function(originalUrl, done) {  
       URLSchema.find({ original_url: originalUrl }, (err,data)=>{
@@ -71,7 +64,15 @@ app.post("/api/shorturl/new", function (req, res) {
 });
 
 
+var createURL = (originalurl,done)=> {   
+  console.log("originalurl:"+originalurl)
+       var shorturl = Math.floor(Math.random() * 10000);
+        var url = new URL( { originalURL: originalurl,shortURL:shorturl });
 
+        url.save((err,data)=>{
+          (err)? done(err):done(null,data);
+        });  
+};   
 
 
 app.listen(port, function () {
