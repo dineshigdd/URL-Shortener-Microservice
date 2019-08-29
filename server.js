@@ -41,14 +41,14 @@ app.post("/api/shorturl/new", function (req, res) {
   var shorturl = 0;
   shorturl = Math.floor(Math.random() * 10000);
     
-  var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+  
   res.json({
             original_url: req.body.url,
             short_url: shorturl
            });
   
   var createURL = (done)=> {  
-  
+  var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
   url.save((err, data )=>{
    
           if(err){
