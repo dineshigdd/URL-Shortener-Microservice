@@ -48,29 +48,41 @@ app.post("/api/shorturl/new", function (req, res) {
            });
   
   var createURL = (done)=> {  
+    
   var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
   url.save((err, data )=>{
    
           if(err){
             return(err);
           }
-             return done(null,data);
+          console.log(data);
+          // return done(null,data);
 
       });  
   };    
 
-  
-});
-
-app.get("/api/shorturl/new",(req,res)=> {
-  var findUrl = function(originalUrl, done) {  
+ var findUrl = function(originalUrl, done) {  
       URLSchema.find({ original_url: originalUrl }, (err,data)=>{
             (err)? done(err):done(null,data)    
 
       });
-
-      res.send({originalUrl:originalUrl});
+   
+      res.redirect('/').send({originalUrl:originalUrl});
+      
     };
+  
+});
+
+app.get("/api/shorturl/new",(req,res)=> {
+   res.send("hello");
+//   var findUrl = function(originalUrl, done) {  
+//       URLSchema.find({ original_url: originalUrl }, (err,data)=>{
+//             (err)? done(err):done(null,data)    
+
+//       });
+
+//       res.send({originalUrl:originalUrl});
+//     };
 })
 
 
