@@ -65,7 +65,7 @@ app.post("/api/shorturl/new", function (req, res) {
 var findUrl = function(originalUrl, done) {
   
   URLSchema.find({ original_url: originalUrl }, (err,data)=>{
-    
+    console.log(originalUrl)
     (err)? done(err):done(null,data)    
     
   });
