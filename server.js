@@ -54,24 +54,24 @@ app.post("/api/shorturl/new", function (req, res) {
           if(err){
             return(err);
           }
-          return done(null,data);
+             return done(null,data);
 
       });  
-  };  
+  };    
 
-var findUrl = function(originalUrl, done) {  
+  
+});
+
+app.get("/api/shorturl/new",(req,res)=> {
+  var findUrl = function(originalUrl, done) {  
       URLSchema.find({ original_url: originalUrl }, (err,data)=>{
             (err)? done(err):done(null,data)    
 
       });
 
-      res.send('<h1>{originalUrl:originalUrl}</h1>');
+      res.send({originalUrl:originalUrl});
     };
-  
-
-  
-});
-
+})
 
 
 
