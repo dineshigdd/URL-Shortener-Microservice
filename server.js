@@ -39,8 +39,8 @@ app.get('/', function(req, res){
 
 app.post("/api/shorturl/new", function (req, res) {  
   
-  createURL(req.body.url);
-  
+  var test = createURL(req.body.url);
+  res.send(test);
     
   
   // res.json({
@@ -69,9 +69,8 @@ var createURL = (originalurl,done)=> {
        var shorturl = Math.floor(Math.random() * 10000);
         var url = new URL( { originalURL: originalurl,shortURL:shorturl });
 
-        url.save((err,data)=>{
-          (err)? done(err):done(null,data);
-        });  
+        url.save();
+  return("saved",done);
 };   
 
 
