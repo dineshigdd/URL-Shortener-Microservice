@@ -26,7 +26,7 @@ var URL = mongoose.model('URL',URLSchema);
 
 /** this project needs to parse POST bodies **/
 // you should mount the body-parser here
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
@@ -42,20 +42,21 @@ app.post("/api/shorturl/new", function (req, res) {
   shorturl = Math.floor(Math.random() * 10000);
     
   
-  res.json({
-            original_url: req.body.url,
-            short_url: shorturl
-           });
+  // res.json({
+  //           original_url: req.body.url,
+  //           short_url: shorturl
+  //          })
+
   
-  // var createURL = (done)=> {      
-  var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
-  
-  url.save().then( displayMsg => {
-            
-            res.send("Url is saved");
-        
-  });  
-  //};    
+  var createURL = (done)=> {      
+        var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+
+        url.save().then( displayMsg => {
+                  
+                  res.send("Url is saved");
+
+        });  
+  };    
 
 //  var findUrl = function(originalUrl, done) {  
 //       URLSchema.find({ original_url: originalUrl }, (err,data)=>{
