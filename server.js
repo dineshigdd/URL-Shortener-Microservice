@@ -62,6 +62,16 @@ app.post("/api/shorturl/new", function (req, res) {
 });
 
 
+var findUrl = function(originalUrl, done) {
+  
+  URLSchema.find({ original_url: originalUrl }, (err,data)=>{
+    
+    (err)? done(err):done(null,data)    
+    
+  });
+  
+};
+
 app.listen(port, function () {
   console.log('Node.js listening ...');
 });
