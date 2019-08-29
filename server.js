@@ -42,10 +42,10 @@ app.post("/api/shorturl/new", function (req, res) {
   shorturl = Math.floor(Math.random() * 10000);
     
   
-  res.json({
-            original_url: req.body.url,
-            short_url: shorturl
-           });
+//   res.json({
+//             original_url: req.body.url,
+//             short_url: shorturl
+//            });
   
   var createURL = (done)=> {  
   var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
@@ -58,19 +58,26 @@ app.post("/api/shorturl/new", function (req, res) {
 
       });  
   };  
-  
-});
-
 
 var findUrl = function(originalUrl, done) {
   
   URLSchema.find({ original_url: originalUrl }, (err,data)=>{
-    console.log(originalUrl)
+    res.json({
+            testdata: data,
+            
+           });
     (err)? done(err):done(null,data)    
     
   });
   
 };
+  
+
+  
+});
+
+
+
 
 app.listen(port, function () {
   console.log('Node.js listening ...');
