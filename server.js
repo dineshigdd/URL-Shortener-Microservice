@@ -54,7 +54,7 @@ app.post("/api/shorturl/new", function (req, res) {
 
         });  
   
-  URLSchema.find({ originalURL: req.body.url , shortURL:shorturl}).then( dispplayMsg => {
+  URL.find({ originalURL: req.body.url , shortURL:shorturl}).then( dispplayMsg => {
        res.json({
             original_url: req.body.url,
             short_url: shorturl
