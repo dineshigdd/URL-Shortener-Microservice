@@ -42,7 +42,7 @@ app.post("/api/shorturl/new", function (req, res) {
   var createURL = (done)=> {
   shorturl = Math.random() + 10000;
     
-  const url = new URL( { originalURL: req.body.url,shortURL:shorturl});
+  const url = new URL( { originalURL: req.body.url,shortURL:shorturl });
     
   url.save((err, data )=>{
           if(err){
