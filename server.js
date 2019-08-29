@@ -38,10 +38,12 @@ app.get('/', function(req, res){
 // your first API endpoint... 
 
 app.post("/api/shorturl/new", function (req, res) {  
-  
+  const shorturl = 0;
   var createURL = (done)=> {
-  const shorturl = Math.random() + 10000;
-  const url = new URL( { originalURL: req.body.url,shortURL:shorturl  });
+  shorturl = Math.random() + 10000;
+    
+  const url = new URL( { originalURL: req.body.url,shortURL:shorturl});
+    
   url.save((err, data )=>{
           if(err){
             return(err);
@@ -54,8 +56,8 @@ app.post("/api/shorturl/new", function (req, res) {
   
   
   res.json({
-            original_url: req.body.url
-           
+            original_url: req.body.url,
+            short_url: shorturl
            });
 });
 
