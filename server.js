@@ -40,7 +40,21 @@ app.get('/', function(req, res){
 app.post("/api/shorturl/new", function (req, res) {  
   var shorturl = 0;
   shorturl = Math.floor(Math.random() * 10000);
+
+  (originalUrl, done)=>{  
   
+      URLSchema.find({ original_url: originalUrl }, (err,data)=>{
+            if(err){
+              res.send("error");
+               done(err)
+            }else{
+              res.send("found");
+              done(null,data)   
+            }
+
+      });
+   
+};
    
   
   
