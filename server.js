@@ -62,34 +62,15 @@ app.post("/api/shorturl/new", function (req, res) {
           }
           else {
             
-              //res.send("Found Records : " + count);
-             URL.find({ originalURL: req.body.url}, (err, data)=>{
-              
-                if(err){
-                   
-                  return (err);
-                }else{
-                  console.log(data[0].originalURL);
-                      if( data[0].originalURL === req.body.url ){
-                        res.json(data)
-                         //      original_url: req.body.url,
-                         //      short_url: shorturl
-                         // })
-                      }else{
-                         res.send("No equal")
-                            // url.insert((err,data)=>{
-                            //     if(err){
-                            //        return console.log(err);
-                            //     }else{
-                            //      res.json({
-                            //             original_url: req.body.url,
-                            //             short_url: shorturl
-                            //              })
-                            //     }
-                            //     res.redirect('/');
-                            // });
-                      }
+             try{ 
+               //res.send("Found Records : " + count);
+                 
+                }catch(err){
+                       
+                            
                 }
+                    
+                
               });
                   
           }
