@@ -40,7 +40,7 @@ app.get('/', function(req, res){
 app.post("/api/shorturl/new", function (req, res) {  
   var shorturl = 0;
   shorturl = Math.floor(Math.random() * 10000);
-  findUrl(req.body.url);
+  console.log("find:"+ findUrl(req.body.url));
    // URL.find({ originalURL: req.body.url}, (err,data)=>{
    //   (err)? res.send("already in DB"):res.send("saved");  
    // })
@@ -72,6 +72,7 @@ app.post("/api/shorturl/new", function (req, res) {
 
 
 var findUrl = function(originalUrl, done) {  
+  console.log("finding data");
       URLSchema.find({ original_url: originalUrl }, (err,data)=>{
             (err)? done(err):done(null,data)    
 
