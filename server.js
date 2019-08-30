@@ -53,13 +53,7 @@ app.post("/api/shorturl/new", function (req, res) {
                      
 //                     }
 //               });
-  
-  URL.find({ originalURL: req.body.url}, (err,data)=>{
-     if(err){
-       return (err)
-     
-     } else{
-        URL.count((err,count)=>{
+   URL.count((err,count)=>{
            
           if( count == 0) {
               res.send("No Found Records.");
@@ -67,39 +61,13 @@ app.post("/api/shorturl/new", function (req, res) {
           }
           else {
             
-             // res.send("Found Records : " + count);
-              res.send(data)
+             res.send("Found Records : " + count);
+             URL.find({ originalURL: req.body.url}, (err, data)=>{
+               console.log(data);
+             });
+              
           }
-       });
-     
-//          if( data[0].originalURL === req.body.url ){
-//            res.send("yes");
-//          }else{
-//              var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
-//               url.save((err,data)=>{
-//                     if(err){
-//                        return console.log(err);
-//                     }else{
-//                      res.send("saved to DB");
-                     
-//                     }
-//               });
-//          }     
-         
-     }
-   })
-  
-     // .then( dispplayMsg => {
-  //    res.send("already in DB");
-  //      // res.json({
-  //      //      original_url: req.body.url,
-  //      //      short_url: shorturl
-  //      //     })
-  // });
-  // res.json({
-  //           original_url: req.body.url,
-  //           short_url: shorturl
-  //          })
+  });
        
   
 });
