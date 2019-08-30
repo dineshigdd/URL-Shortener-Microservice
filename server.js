@@ -48,22 +48,23 @@ app.post("/api/shorturl/new", function (req, res) {
   
   URL.find({ originalURL: req.body.url}, (err,data)=>{
      if(err){
-       res.send(err)
-        
+       return (err)
+     
      } else{
          
-         if( data[0].originalURL === req.body.url){
+         if( data[0].originalURL === req.body.url || data){
            res.send("yes");
          }else{
-           var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
-            url.save((err,data)=>{
-                  if(err){
-                     return console.log(err);
-                  }
-                   res.send("saved to DB");
-                  });
-               
-         }      
+             var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+              url.save((err,data)=>{
+                    if(err){
+                       return console.log(err);
+                    }else{
+                     res.send("saved to DB");
+                     
+                    }
+              });
+         }     
          
      }
    })
@@ -84,14 +85,14 @@ app.post("/api/shorturl/new", function (req, res) {
 });
 
 
-var findUrl = function(originalUrl, done) {  
-  console.log("finding data");
-      URLSchema.find({ original_url: originalUrl }, (err,data)=>{
-            (err)? done(err):done(null,data)    
+// var findUrl = function(originalUrl, done) {  
+//   console.log("finding data");
+//       URLSchema.find({ original_url: originalUrl }, (err,data)=>{
+//             (err)? done(err):done(null,data)    
 
-      });
+//       });
    
-};
+// };
 
 
 
