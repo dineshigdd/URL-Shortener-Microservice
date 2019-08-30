@@ -41,26 +41,13 @@ app.post("/api/shorturl/new", function (req, res) {
   var shorturl = 0;
   shorturl = Math.floor(Math.random() * 10000);
 
-  (originalUrl, done)=>{  
-  
-      URLSchema.find({ original_url: originalUrl }, (err,data)=>{
-            if(err){
-              res.send("error");
-               done(err)
-            }else{
-              res.send("found");
-              done(null,data)   
-            }
-
-      });
-   
-};
-   
+ 
   
   
-  // URL.find({ originalURL: req.body.url}, (err,data)=>{
-   //   (err)? res.send("already in DB"):res.send("saved");  
-   // })
+  URL.find({ originalURL: req.body.url}, (err,data)=>{
+     if(err) res.send("already in DB"):res.send("saved");  
+   })
+  
      // .then( dispplayMsg => {
   //    res.send("already in DB");
   //      // res.json({
@@ -72,13 +59,14 @@ app.post("/api/shorturl/new", function (req, res) {
   //           original_url: req.body.url,
   //           short_url: shorturl
   //          })
-//   var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+  var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
 
-//         url.save().then( displayMsg => {
-                  
-//                   res.send("Url is saved");
-
-//         });  
+        url.save((err,data)=>{
+          if(err){
+             return console.log(err);
+          }
+           res.redirect('/');
+        });
   
  
             
