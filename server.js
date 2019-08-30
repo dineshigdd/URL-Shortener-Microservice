@@ -63,7 +63,10 @@ app.post("/api/shorturl/new", function (req, res) {
                                 
                             });
                       }else if( data[0].originalURL === req.body.url ){
-                        res.send("<html><body><a href='https://'" + __dirname +"'">Dinesh</a></body></html>");
+                        res.send("<html><body><a href='https://'" + 
+                                 __dirname + "/api/shorturl/new" +
+                                 data[0].originalURL + data[0].shortURL + "'>" +
+                                 data[0].originalURL + data[0].shortURL + "</a></body></html>");
                    
                         }
                 }
