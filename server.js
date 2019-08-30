@@ -40,8 +40,11 @@ app.get('/', function(req, res){
 app.post("/api/shorturl/new", function (req, res) {  
   var shorturl = 0;
   shorturl = Math.floor(Math.random() * 10000);
-  console.log("find:"+ findUrl(req.body.url));
-   // URL.find({ originalURL: req.body.url}, (err,data)=>{
+  
+   
+  
+  
+  // URL.find({ originalURL: req.body.url}, (err,data)=>{
    //   (err)? res.send("already in DB"):res.send("saved");  
    // })
      // .then( dispplayMsg => {
