@@ -46,17 +46,24 @@ app.post("/api/shorturl/new", function (req, res) {
   
   URL.find({ originalURL: req.body.url}, (err,data)=>{
      if(err){
-       console.log("saving data" + req.body.url);
-       var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
-        url.save((err,data)=>{
-          if(err){
-             return console.log(err);
-          }
-           res.redirect('/');
-        });
-       //res.send(data); 
+       res.send(err)
+        
      } else{
-       res.send(data);  
+       
+         if( data[0].originalURL === req.body.url){
+           res.send("yes");
+         }else{
+           var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+            url.save((err,data)=>{
+                  if(err){
+                     return console.log(err);
+                  }
+                   res.send("saved to DB");
+                  });
+               
+         }
+      
+         
      }
    })
   
