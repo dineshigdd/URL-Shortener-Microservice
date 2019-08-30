@@ -45,7 +45,19 @@ app.post("/api/shorturl/new", function (req, res) {
   
   
   URL.find({ originalURL: req.body.url}, (err,data)=>{
-     if(err) res.send("already in DB"):res.send("saved");  
+     if(err){
+       console.log("saving data" + req.body.url);
+       var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+        url.save((err,data)=>{
+          if(err){
+             return console.log(err);
+          }
+           res.redirect('/');
+        });
+       //res.send(data); 
+     } else{
+       res.send(data);  
+     }
    })
   
      // .then( dispplayMsg => {
@@ -59,14 +71,7 @@ app.post("/api/shorturl/new", function (req, res) {
   //           original_url: req.body.url,
   //           short_url: shorturl
   //          })
-  var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
-
-        url.save((err,data)=>{
-          if(err){
-             return console.log(err);
-          }
-           res.redirect('/');
-        });
+  
   
  
             
