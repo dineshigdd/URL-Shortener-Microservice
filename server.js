@@ -41,15 +41,16 @@ app.post("/api/shorturl/new", function (req, res) {
   var shorturl = 0;
   shorturl = Math.floor(Math.random() * 10000);
 
- 
+ // URL.remove({originalURL: req.body.url},(err,data) =>{
+ //    err?res.send(err):res.send("deleted")
+ //  })
   
   
   URL.find({ originalURL: req.body.url}, (err,data)=>{
      if(err){
        res.send(err)
         
-     } else{
-       
+     } else{       
          if( data[0].originalURL === req.body.url){
            res.send("yes");
          }else{
@@ -61,8 +62,7 @@ app.post("/api/shorturl/new", function (req, res) {
                    res.send("saved to DB");
                   });
                
-         }
-      
+         }      
          
      }
    })
@@ -78,12 +78,7 @@ app.post("/api/shorturl/new", function (req, res) {
   //           original_url: req.body.url,
   //           short_url: shorturl
   //          })
-  
-  
- 
-            
-
-      
+       
   
 });
 
