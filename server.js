@@ -40,7 +40,7 @@ app.get('/', function(req, res){
 app.post("/api/shorturl/new", function (req, res) {  
   var shorturl = 0;
   shorturl = Math.floor(Math.random() * 10000);
-
+  var url = '';
  // URL.remove({},(err,data) =>{
  //    err?res.send(err):res.send("deleted")
  //  })
@@ -49,7 +49,7 @@ app.post("/api/shorturl/new", function (req, res) {
            
           if( count == 0) {
              // res.send("No Found Records.");
-              var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+              url = new URL( { originalURL: req.body.url,shortURL:shorturl });
               url.save((err,data)=>{
                     if(err){
                        return console.log(err);
@@ -64,11 +64,25 @@ app.post("/api/shorturl/new", function (req, res) {
             
              //res.send("Found Records : " + count);
              URL.find({ originalURL: req.body.url}, (err, data)=>{
+             
                 if( data[0].originalURL === req.body.url ){
-                   res.json({
-                    original_url: req.body.url,
-                    short_url: shorturl
-                   })
+                  res.json(data)
+                   // res.json({
+                   //      original_url: req.body.url,
+                   //      short_url: shorturl
+                   // })
+                }else{
+                      url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+                      url.save((err,data)=>{
+                          if(err){
+                             return console.log(err);
+                          }else{
+                           res.json({
+                                  original_url: req.body.url,
+                                  short_url: shorturl
+                                   })
+                          }
+                      });
                 }
              });
               
