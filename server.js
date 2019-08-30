@@ -58,14 +58,17 @@ app.post("/api/shorturl/new", function (req, res) {
                                         original_url: req.body.url,
                                         short_url: shorturl
                                          })
+                                 
                                 }
                                 
                             });
                       }else if( data[0].originalURL === req.body.url ){
-                        res.json({
+                        res.send({
                                   original_url: req.body.url,
                                   short_url: shorturl
-                                  })
+                                  } + '< br/>' + 
+                                 '<a href=' +__dirname + '</a>');
+                   
                         }
                 }
               });
