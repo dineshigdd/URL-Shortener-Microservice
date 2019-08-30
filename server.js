@@ -51,20 +51,31 @@ app.post("/api/shorturl/new", function (req, res) {
        return (err)
      
      } else{
-         
-         if( data[0].originalURL === req.body.url || data){
-           res.send("yes");
-         }else{
-             var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
-              url.save((err,data)=>{
-                    if(err){
-                       return console.log(err);
-                    }else{
-                     res.send("saved to DB");
+        URL.count((err,count)=>{
+           
+          if( count == 0) {
+              res.send("No Found Records.");
+            
+          }
+          else {
+              res.send("Found Records : " + count);
+              //res.send(data)
+          }
+       });
+     
+//          if( data[0].originalURL === req.body.url ){
+//            res.send("yes");
+//          }else{
+//              var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+//               url.save((err,data)=>{
+//                     if(err){
+//                        return console.log(err);
+//                     }else{
+//                      res.send("saved to DB");
                      
-                    }
-              });
-         }     
+//                     }
+//               });
+//          }     
          
      }
    })
