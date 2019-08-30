@@ -44,13 +44,7 @@ app.post("/api/shorturl/new", function (req, res) {
  // URL.remove({},(err,data) =>{
  //    err?res.send(err):res.send("deleted")
  //  })
-
-   URL.count((err,count)=>{
-           
-          if( count == 0) {
-             // res.send("No Found Records.");
-             
-              url.save((err,data)=>{
+ url.save((err,data)=>{
                     if(err){
                        return console.log(err);
                     }else{
@@ -58,38 +52,54 @@ app.post("/api/shorturl/new", function (req, res) {
                      
                     }
               });
+  
+//    URL.count((err,count)=>{
+           
+//           if( count == 0) {
+//              // res.send("No Found Records.");
+             
+//               url.save((err,data)=>{
+//                     if(err){
+//                        return console.log(err);
+//                     }else{
+//                      res.send("saved to DB");
+                     
+//                     }
+//               });
             
-          }
-          else {
+//           }
+//           else {
             
-             //res.send("Found Records : " + count);
-             URL.find({ originalURL: req.body.url}, (err, data)=>{
-                if(err){
-                  res.send(err)
-                }else{
-                      if( data[0].originalURL === req.body.url ){
-                        res.json(data)
-                         // res.json({
-                         //      original_url: req.body.url,
-                         //      short_url: shorturl
-                         // })
-                      }else{
-                           console.log(data)
-                            // url.save((err,data)=>{
-                            //     if(err){
-                            //        return console.log(err);
-                            //     }else{
-                            //      res.json({
-                            //             original_url: req.body.url,
-                            //             short_url: shorturl
-                            //              })
-                            //     }
-                            // });
-                      }
-                   });
-              
-          }
-  });
+//              //res.send("Found Records : " + count);
+//              URL.find({ originalURL: req.body.url}, (err, data)=>{
+//                console.log(req.body)
+//                 if(err){
+//                   return (err);
+//                 }else{
+//                       if( data[0].originalURL === req.body.url ){
+//                         res.json(data)
+//                          // res.json({
+//                          //      original_url: req.body.url,
+//                          //      short_url: shorturl
+//                          // })
+//                       }else{
+//                            console.log(data)
+//                             // url.save((err,data)=>{
+//                             //     if(err){
+//                             //        return console.log(err);
+//                             //     }else{
+//                             //      res.json({
+//                             //             original_url: req.body.url,
+//                             //             short_url: shorturl
+//                             //              })
+//                             //     }
+//                             // });
+//                       }
+//                 }
+//               });
+                  
+//           }
+//   });
        
   
 });
