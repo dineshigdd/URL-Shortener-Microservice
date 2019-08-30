@@ -44,7 +44,15 @@ app.post("/api/shorturl/new", function (req, res) {
  // URL.remove({originalURL: req.body.url},(err,data) =>{
  //    err?res.send(err):res.send("deleted")
  //  })
-  
+//   var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+//               url.save((err,data)=>{
+//                     if(err){
+//                        return console.log(err);
+//                     }else{
+//                      res.send("saved to DB");
+                     
+//                     }
+//               });
   
   URL.find({ originalURL: req.body.url}, (err,data)=>{
      if(err){
@@ -58,8 +66,9 @@ app.post("/api/shorturl/new", function (req, res) {
             
           }
           else {
-              res.send("Found Records : " + count);
-              //res.send(data)
+            
+             // res.send("Found Records : " + count);
+              res.send(data)
           }
        });
      
