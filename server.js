@@ -45,7 +45,7 @@ app.post("/api/shorturl/new", function (req, res) {
  //    err?res.send(err):res.send("deleted")
  //  })
 
-   URL.countDocuments((err,count)=>{
+   URL.count((err,count)=>{
            
           if( count == 0) {
              res.send("No Found Records.");
@@ -62,16 +62,27 @@ app.post("/api/shorturl/new", function (req, res) {
           }
           else {
             
-             try{
-                //res.send("Found Records : " + count);
+              //res.send("Found Records : " + count);
              URL.find({ originalURL: req.body.url}, (err, data)=>{
               
                 if(err){
                    
                   return (err);
                 }else{
-                      
-                      if( data[0].originalURL === req.body.url ){
+                      if(!data.length){
+                        
+                        url.save((err,data)=>{
+                                if(err){
+                                   return console.log(err);
+                                }else{
+                                 res.json({
+                                        original_url: req.body.url,
+                                        short_url: shorturl
+                                         })
+                                }
+                                
+                            });
+                      }else if( data[0].originalURL === req.body.url ){
                         res.json(data)
                          //      original_url: req.body.url,
                          //      short_url: shorturl
@@ -79,21 +90,6 @@ app.post("/api/shorturl/new", function (req, res) {
                       }
                 }
               });
-               
-             }catch(e){
-               res.send("This is in catch block")
-                // url.insert((err,data)=>{
-                //                 if(err){
-                //                    return console.log(err);
-                //                 }else{
-                //                  res.json({
-                //                         original_url: req.body.url,
-                //                         short_url: shorturl
-                //                          })
-                //                 }
-                //                 res.redirect('/');
-                //             });
-             }
                   
           }
   });
