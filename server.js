@@ -50,7 +50,8 @@ app.post("/api/shorturl/new", function (req, res) {
      if(err){
        res.send(err)
         
-     } else{       
+     } else{
+         
          if( data[0].originalURL === req.body.url){
            res.send("yes");
          }else{
