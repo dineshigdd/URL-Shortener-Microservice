@@ -62,19 +62,21 @@ app.post("/api/shorturl/new", function (req, res) {
           }
           else {
             
-             res.send("Found Records : " + count);
+            
              URL.find({ originalURL: req.body.url}, (err, data)=>{
-               console.log(req.body)
+              
                 if(err){
+                   
                   return (err);
                 }else{
+                  
                       if( data[0].originalURL === req.body.url ){
                         res.json(data)
                          //      original_url: req.body.url,
                          //      short_url: shorturl
                          // })
                       }else{
-                           console.log(data)
+                           res.send("Found Records : " + count);
                             url.insert((err,data)=>{
                                 if(err){
                                    return console.log(err);
@@ -84,6 +86,7 @@ app.post("/api/shorturl/new", function (req, res) {
                                         short_url: shorturl
                                          })
                                 }
+                                res.redirect('/');
                             });
                       }
                 }
