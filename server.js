@@ -41,13 +41,15 @@ app.get('/', function(req, res){
 app.post("/api/shorturl/new", function (req, res) {  
 
   
-    dns.lookup( 'www.blablabla.com', (err, ipAddress) => {
-       (err) ?  err:  console.log(ipAddress);  
+    dns.lookup(  'freecodecamp.org' , (err, ipAddress) => {
+       (err) ?  err:  ipAddress;  
 
 
       if( ipAddress === undefined ){
-        console.log("No such address");
+        console.log("No such address")
+        //res.json({"error":"invalid URL"});
       }else{ 
+        console.log(ipAddress);
           var shorturl = 0;
           shorturl = Math.floor(Math.random() * 10000);
           var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
