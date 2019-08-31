@@ -4,6 +4,7 @@ var express = require('express');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+const dns = require('dns');
 
 var cors = require('cors');
 
@@ -38,6 +39,17 @@ app.get('/', function(req, res){
 // your first API endpoint... 
 
 app.post("/api/shorturl/new", function (req, res) {  
+  
+  const IP = dns.lookup("'" + req.body.url + "'" , (err, ipAddress) => {
+     if(err){
+       return err;
+     }else{
+       return ipAddress
+     };
+  });
+  
+  console.log("IP:"+ IP);
+  
   var shorturl = 0;
   shorturl = Math.floor(Math.random() * 10000);
   var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
