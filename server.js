@@ -39,16 +39,15 @@ app.get('/', function(req, res){
 // your first API endpoint... 
 
 app.post("/api/shorturl/new", function (req, res) {  
+  const ipAddress = '';
   
-  const IP = dns.lookup("'" + req.body.url + "'" , (err, ipAddress) => {
-     if(err){
-       return err;
-     }else{
-       return ipAddress
-     };
+  dns.lookup( 'www.blabla.com', (err, ipAddress) => {
+     (err) ?  err:  ipAddress;     
   });
   
-  console.log("IP:"+ IP);
+  if( ipAddress === 'undefined' ){
+    console.log("No such address")
+  }
   
   var shorturl = 0;
   shorturl = Math.floor(Math.random() * 10000);
