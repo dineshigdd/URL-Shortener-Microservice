@@ -40,7 +40,8 @@ app.get('/', function(req, res){
 
 app.post("/api/shorturl/new", function (req, res) {  
   
- dns.getServers("hostname:" +req.body.url);
+   var pattern=/(.+:\/\/)?([^\/]+)(\/.*)*/i;
+   var arr=pattern.exec(req.body.url);
   
     dns.lookup(  req.body.url.replace(/(^\w+:|^)\/\//, ''), (err, ipAddress) => {
        (err) ?  err:  ipAddress;  
