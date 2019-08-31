@@ -42,8 +42,10 @@ app.post("/api/shorturl/new", function (req, res) {
   
    var pattern=/(.+:\/\/)?([^\/]+)(\/.*)*/i;
    var arr=pattern.exec(req.body.url);
+   var hostname = arr[2];
   
-    dns.lookup(  req.body.url.replace(/(^\w+:|^)\/\//, ''), (err, ipAddress) => {
+  //req.body.url.replace(/(^\w+:|^)\/\//, '')
+    dns.lookup( hostname, (err, ipAddress) => {
        (err) ?  err:  ipAddress;  
 
 
@@ -72,7 +74,7 @@ app.post("/api/shorturl/new", function (req, res) {
                                   "<html><body>" + 
                                   JSON.stringify({original_url: url.originalURL, short_url: url.shortURL}) + "<br />" +
                                   "<a href=" + "'" + url.originalURL + "'>" +
-                                         url.originalURL + "/api/" + url.shortURL + "</a></body></html>");
+                                         hostname + "/api/" + url.shortURL + "</a></body></html>");
 
                                         }
 
@@ -82,7 +84,7 @@ app.post("/api/shorturl/new", function (req, res) {
                                   "<html><body>" + 
                                   JSON.stringify({original_url: data[0].originalURL,short_url: data[0].shortURL}) + "<br />" +
                                   "<a href=" + "'" + data[0].originalURL + "'>" +
-                                         data[0].originalURL + "/api/" + data[0].shortURL + "</a></body></html>");
+                                         hostname + "/api/" + data[0].shortURL + "</a></body></html>");
 
                                 }
                         }
