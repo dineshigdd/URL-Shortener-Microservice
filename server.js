@@ -39,15 +39,15 @@ app.get('/', function(req, res){
 // your first API endpoint... 
 
 app.post("/api/shorturl/new", function (req, res) {  
-
+ 
   
-    dns.lookup(  'freecodecamp.org' , (err, ipAddress) => {
+    dns.lookup(  req.body.url.replace(/(^\w+:|^)\/\//, ''), (err, ipAddress) => {
        (err) ?  err:  ipAddress;  
 
 
       if( ipAddress === undefined ){
-        console.log("No such address")
-        //res.json({"error":"invalid URL"});
+        //console.log("No such address")
+        res.json({"error":"invalid URL"});
       }else{ 
         console.log(ipAddress);
           var shorturl = 0;
