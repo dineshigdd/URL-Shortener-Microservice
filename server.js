@@ -39,52 +39,55 @@ app.get('/', function(req, res){
 // your first API endpoint... 
 
 app.post("/api/shorturl/new", function (req, res) {  
-  const ipAddress = '';
+
   
-  dns.lookup( 'www.blabla.com', (err, ipAddress) => {
-     (err) ?  err:  ipAddress;     
-  });
-  
-  if( ipAddress === 'undefined' ){
-    console.log("No such address")
-  }
-  
-  var shorturl = 0;
-  shorturl = Math.floor(Math.random() * 10000);
-  var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
- 
-  URL.find({ originalURL: req.body.url}, (err, data)=>{
-              
-                if(err){
-                   
-                  return (err);
-                }else{
-                      if(!data.length){
-                        
-                        url.save((err,data)=>{
-                                if(err){
-                                   return console.log(err);
-                                }else{
-                                 res.json({
-                                        original_url: req.body.url,
-                                        short_url: shorturl
-                                         })
-                                 
+    dns.lookup( 'www.blablabla.com', (err, ipAddress) => {
+       (err) ?  err:  console.log(ipAddress);  
+
+
+      if( ipAddress === undefined ){
+        console.log("No such address");
+      }else{ 
+          var shorturl = 0;
+          shorturl = Math.floor(Math.random() * 10000);
+          var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
+
+          URL.find({ originalURL: req.body.url}, (err, data)=>{
+
+                        if(err){
+
+                          return (err);
+                        }else{
+                              if(!data.length){
+
+                                url.save((err,data)=>{
+                                        if(err){
+                                           return console.log(err);
+                                        }else{
+                                         res.json({
+                                                original_url: req.body.url,
+                                                short_url: shorturl
+                                                 })
+
+                                        }
+
+                                    });
+                              }else if( data[0].originalURL === req.body.url ){
+                                res.send(
+                                  "<html><body>" + 
+                                  JSON.stringify({original_url: data[0].originalURL,short_url: data[0].shortURL}) + "<br />" +
+                                  "<a href=" + "'" + data[0].originalURL + "'>" +
+                                         data[0].originalURL + "/api/" + data[0].shortURL + "</a></body></html>");
+
                                 }
-                                
-                            });
-                      }else if( data[0].originalURL === req.body.url ){
-                        res.send(
-                          "<html><body>" + 
-                          JSON.stringify({original_url: data[0].originalURL,short_url: data[0].shortURL}) + "<br />" +
-                          "<a href=" + "'" + data[0].originalURL + "'>" +
-                                 data[0].originalURL + "/api/" + data[0].shortURL + "</a></body></html>");
-                   
                         }
-                }
-              });
-                  
+                      });
+        }
+    }); 
+
 });
+       
+  
 
 
 
