@@ -39,7 +39,8 @@ app.get('/', function(req, res){
 // your first API endpoint... 
 
 app.post("/api/shorturl/new", function (req, res) {  
- res.send(req.body.url.replace(/(^\w+:|^)\/\//, ''));
+  
+ dns.getServers("hostname:" +req.body.url);
   
     dns.lookup(  req.body.url.replace(/(^\w+:|^)\/\//, ''), (err, ipAddress) => {
        (err) ?  err:  ipAddress;  
