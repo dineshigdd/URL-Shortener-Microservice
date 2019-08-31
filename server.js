@@ -46,7 +46,7 @@ app.post("/api/shorturl/new", function (req, res) {
 
 
       if( ipAddress === undefined ){
-        console.log("Host name:" + window.location.hostname)
+        
         res.json({"error":"invalid URL"});
       }else{ 
         
