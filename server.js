@@ -66,9 +66,7 @@ app.post("/api/shorturl/new", function (req, res) {
                         res.send(
                           "<html><body>" + 
                           JSON.stringify({original_url: data[0].originalURL,short_url: data[0].shortURL}) + "<br />" +
-                          "<a href='https://'" + 
-                                 __dirname+ data[0].originalURL + "/" + data[0].shortURL +
-                                 "'>" +
+                          "<a href=" + "'" + data[0].originalURL + "'>" +
                                  data[0].originalURL + "/api/" + data[0].shortURL + "</a></body></html>");
                    
                         }
