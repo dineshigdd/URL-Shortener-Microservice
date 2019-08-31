@@ -46,10 +46,10 @@ app.post("/api/shorturl/new", function (req, res) {
 
 
       if( ipAddress === undefined ){
-        //console.log("No such address")
+        
         res.json({"error":"invalid URL"});
       }else{ 
-        console.log(ipAddress);
+        
           var shorturl = 0;
           shorturl = Math.floor(Math.random() * 10000);
           var url = new URL( { originalURL: req.body.url,shortURL:shorturl });
@@ -64,7 +64,7 @@ app.post("/api/shorturl/new", function (req, res) {
 
                                 url.save((err,data)=>{
                                         if(err){
-                                           return console.log(err);
+                                           return err;
                                         }else{
                                          res.send(
                                   "<html><body>" + 
